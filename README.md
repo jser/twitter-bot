@@ -2,6 +2,10 @@
 
 Bot program for [@jser_info](https://twitter.com/jser_info "@jser_info").
 
+## Server
+
+Work on https://gomix.com/#!/project/jser-twitter-bot
+
 ## Installation
 
     npm install
