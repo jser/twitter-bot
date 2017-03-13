@@ -17,7 +17,7 @@ Host on [now](https://github.com/zeit/now-cli "now")
 
 ## Commands
 
-### `@jser /(stat|status|ステータス)/`
+### `@jser /(stat|status|進捗|ステータス)/`
 
 https://jser.info/status-of-post の結果を返します。
 

@@ -19,7 +19,7 @@ const isReply = (tweet) => {
     return /@jser_info/.test(tweet.text);
 };
 const isStat = (tweet) => {
-    return /(stat|status|ステータス)/.test(tweet.text);
+    return /(stat|status|進捗|ステータス)/.test(tweet.text);
 };
 stream.on('tweet', function(tweet) {
     if (!isReply(tweet)) {
