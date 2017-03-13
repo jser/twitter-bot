@@ -4,7 +4,8 @@ Bot program for [@jser_info](https://twitter.com/jser_info "@jser_info").
 
 ## Server
 
-Work on https://gomix.com/#!/project/jser-twitter-bot
+Host on [now](https://github.com/zeit/now-cli "now")
+
 
 ## Installation
 
@@ -19,6 +20,10 @@ Work on https://gomix.com/#!/project/jser-twitter-bot
 ### `@jser /(stat|status|ステータス)/`
 
 https://jser.info/status-of-post の結果を返します。
+
+## Deploy
+
+    now
 
 ## Contributing
 
