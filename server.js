@@ -1,4 +1,6 @@
-/* Setting things up. */
+// load .env file
+require('dotenv').config();
+
 const path = require('path');
 const statusOfPost = require("./lib/status-of-post");
 const Twit = require('twit');
