@@ -5,8 +5,8 @@
   "description": "twitter-bot for jser.info",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "deploy": "now deploy"
+    "start": "node -r dotenv/config server.js",
+    "deploy": "now --dotenv=.env deploy"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
