@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const path = require('path');
 const statusOfPost = require("./lib/status-of-post");
+const latestPost = require("./lib/latest-post");
 const Twit = require('twit');
 const config = {
     /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/
@@ -21,21 +22,37 @@ const isReply = (tweet) => {
 const isStat = (tweet) => {
     return /(stat|status|進捗|ステータス)/.test(tweet.text);
 };
+const isLatest = (tweet) => {
+    return /(最新の投稿|新しい投稿)/.test(tweet.text);
+};
+const replyTo = (tweet, messsage) => {
+    return new Promise((resolve, reject) => {
+        const replyTo = `@${tweet.user.screen_name}`;
+        T.post('statuses/update', {
+            status: `${replyTo} ${messsage}`,
+            in_reply_to_status_id: tweet.id
+        }, function(error, data, response) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+};
 stream.on('tweet', function(tweet) {
     if (!isReply(tweet)) {
         return;
     }
-    const replyTo = `@${tweet.user.screen_name}`;
     if (isStat(tweet)) {
         return statusOfPost().then(text => {
-            T.post('statuses/update', {
-                status: `${replyTo} ${text}`,
-                in_reply_to_status_id: tweet.id
-            }, function(error, data, response) {
-                if (error) {
-                    console.log(error.message, error.stack);
-                }
-            });
+            return replyTo(tweet, text);
+        }).catch(error => {
+            console.log(error.message, error.stack);
+        });
+    } else if (isLatest(tweet)) {
+        return latestPost().then(text => {
+            return replyTo(tweet, text);
         }).catch(error => {
             console.log(error.message, error.stack);
         });
