@@ -4,6 +4,7 @@ require('dotenv').config();
 const path = require('path');
 const statusOfPost = require("./lib/status-of-post");
 const latestPost = require("./lib/latest-post");
+const getPrURL = require("./lib/pr-url");
 const Twit = require('twit');
 const config = {
     /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/
@@ -24,6 +25,9 @@ const isStat = (tweet) => {
 };
 const isLatest = (tweet) => {
     return /(最新の投稿|新しい投稿)/.test(tweet.text);
+};
+const isPR_URL = (tweet) => {
+    return /(PR|Pull Request|プルリクエスト)/i.test(tweet.text);
 };
 const replyTo = (tweet, messsage) => {
     return new Promise((resolve, reject) => {
@@ -52,6 +56,12 @@ stream.on('tweet', function(tweet) {
         });
     } else if (isLatest(tweet)) {
         return latestPost().then(text => {
+            return replyTo(tweet, text);
+        }).catch(error => {
+            console.log(error.message, error.stack);
+        });
+    } else if (isPR_URL(tweet)) {
+        return getPrURL().then(text => {
             return replyTo(tweet, text);
         }).catch(error => {
             console.log(error.message, error.stack);
