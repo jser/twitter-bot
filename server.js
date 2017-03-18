@@ -1,6 +1,4 @@
 // load .env file
-require('dotenv').config();
-
 const path = require('path');
 const statusOfPost = require("./lib/status-of-post");
 const latestPost = require("./lib/latest-post");
@@ -76,7 +74,7 @@ stream.on('tweet', function(tweet) {
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
-const listener = app.listen(process.env.PORT, function() {
+const listener = app.listen(process.env.PORT || 0, function() {
     console.log('Your app is listening on port ' + listener.address().port);
 });
 

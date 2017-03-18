@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node -r dotenv/config server.js",
-    "deploy": "now --dotenv=.env deploy"
+    "deploy": "now --dotenv=.env deploy",
+    "postdeploy": "now alias `pbpaste` https://jser-twitter-bot.now.sh"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
