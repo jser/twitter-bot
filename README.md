@@ -6,6 +6,7 @@ Bot program for [@jser_info](https://twitter.com/jser_info "@jser_info").
 
 Host on [now](https://github.com/zeit/now-cli "now")
 
+- https://jser-twitter-bot.now.sh
 
 ## Installation
 
