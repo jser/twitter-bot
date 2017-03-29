@@ -16,6 +16,9 @@ const config = {
 const T = new Twit(config.twitter);
 const stream = T.stream('statuses/filter', { track: '@jser_info' });
 const isReply = (tweet) => {
+    if(tweet.user.screen_name !== "azu_re"){
+        return false;
+    }
     return /^@jser_info/.test(tweet.text);
 };
 const isStat = (tweet) => {
