@@ -16,7 +16,7 @@ const config = {
 const T = new Twit(config.twitter);
 const stream = T.stream('statuses/filter', { track: '@jser_info' });
 const isReply = (tweet) => {
-    return /@jser_info/.test(tweet.text);
+    return /^@jser_info/.test(tweet.text);
 };
 const isStat = (tweet) => {
     return /(stat|status|進捗|ステータス)/.test(tweet.text);
