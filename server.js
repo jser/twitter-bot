@@ -3,6 +3,7 @@ const path = require('path');
 const statusOfPost = require("./lib/status-of-post");
 const latestPost = require("./lib/latest-post");
 const getPrURL = require("./lib/pr-url");
+const trends = require("./lib/trends");
 const Twit = require('twit');
 const config = {
     /* Be sure to update the .env file with your API keys. See how to get them: https://botwiki.org/tutorials/make-an-image-posting-twitter-bot/#creating-a-twitter-app*/
@@ -16,7 +17,7 @@ const config = {
 const T = new Twit(config.twitter);
 const stream = T.stream('statuses/filter', { track: '@jser_info' });
 const isReply = (tweet) => {
-    if(tweet.user.screen_name !== "azu_re"){
+    if (tweet.user.screen_name !== "azu_re") {
         return false;
     }
     return /^@jser_info/.test(tweet.text);
@@ -29,6 +30,9 @@ const isLatest = (tweet) => {
 };
 const isPR_URL = (tweet) => {
     return /(PR|Pull Request|プルリクエスト)/i.test(tweet.text);
+};
+const isTrend = (tweet) => {
+    return /(トレンド|trend)/i.test(tweet.text);
 };
 const replyTo = (tweet, messsage) => {
     return new Promise((resolve, reject) => {
@@ -67,6 +71,11 @@ stream.on('tweet', function(tweet) {
         }).catch(error => {
             console.log(error.message, error.stack);
         });
+    } else if (isTrend(tweet)) {
+        const result = trends(tweet.text);
+        if (result) {
+            return replyTo(tweet, result);
+        }
     }
 });
 
