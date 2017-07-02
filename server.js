@@ -25,7 +25,7 @@ const isStat = (tweet) => {
     return /(stat|status|進捗|ステータス)/.test(tweet.text);
 };
 const isLatest = (tweet) => {
-    return /(最新の投稿|新しい投稿)/.test(tweet.text);
+    return /(最新の投稿|新しい投稿|最新の記事|新しい記事)/.test(tweet.text);
 };
 const isPR_URL = (tweet) => {
     return /(PR|Pull Request|プルリクエスト)/i.test(tweet.text);
